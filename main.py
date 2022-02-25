@@ -33,7 +33,7 @@ class AlpacaPaperSocket(REST):
 # - For example. System Loop for portfolio management would be very different to day trading systems
 
 
-class TradingSystem(abs.ABC):
+class TradingSystem(abc.ABC):
 
     def __init__(self, api, symbol, time_frame, system_id, system_label):
         # Connect to API
@@ -114,12 +114,12 @@ class AIPortfolioDevelopment:
         network.fit(X_train.values, y_train.values, epochs=100)
 
         # Evaluvate the predictions of the model
-        y_pred = network.predict(X.test.values)
+        y_pred = network.predict(X_test.values)
         y_pred = np.around(y_pred, 0)
         print(classification_report(y_test, y_pred))
 
         # Save the structure to JSON
-        model = network.to_jason()
+        model = network.to_json()
         with open("model.json", "w") as json_file:
             json_file.write(model)
 
